@@ -15,13 +15,15 @@ public class BaseController {
 	
 	protected Logger logger= LoggerFactory.getLogger(this.getClass().getName());
 	
-	protected Map<String,Object> infoBlock;
-	
-	public Map<String, Object> getInfoBlock() {
-		return infoBlock;
+	protected Map<String,Object> EiInfo;
+
+	public Map<String, Object> getEiInfo() {
+		return EiInfo;
 	}
 
-	public void setInfoBlock(Map<String, Object> infoBlock) {
-		this.infoBlock = infoBlock;
+	public void setEiInfo(Map<String, Object> eiInfo) {
+		EiInfo = eiInfo;
 	}
+	
+	
 }

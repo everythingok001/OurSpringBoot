@@ -1,7 +1,10 @@
 package w.p.j.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.context.annotation.Scope;
@@ -17,7 +20,9 @@ public class OtherController extends BaseController {
 	
 	@RequestMapping("/show")
 	public String show(){
-		logger.info("hahahwoaini");
+		EiInfo.put("message", "王栋");
+		EiInfo.put("time", "王栋");
+		EiInfo.put("haha", "王栋111");
 		return "show";
 	}
 
