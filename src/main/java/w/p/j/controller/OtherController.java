@@ -1,11 +1,7 @@
 package w.p.j.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
