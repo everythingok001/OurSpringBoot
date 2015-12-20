@@ -11,7 +11,6 @@
 	</settings>	
 	<plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
-            <property name="dialect" value="mysql"/>
             <property name="offsetAsPageNum" value="true"/>
         </plugin>
     </plugins>

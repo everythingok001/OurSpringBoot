@@ -22,10 +22,17 @@ public class OtherController extends BaseController {
 		return "show";
 	}
 
+	@RequestMapping("/index")
+	public String index(){
+		EiInfo.put("message", "王栋");
+		EiInfo.put("time", "王栋");
+		EiInfo.put("haha", "王栋111");
+		return "index";
+	}
 	
 	@RequestMapping("/user")
 	@ResponseBody
-	public List<Map<String,Object>> findOne(String id) {
-		return dao.selectList("GetUserInfo.findById", null, new RowBounds(1, 3));
+	public List<Map<String,Object>> findOne() {
+		return dao.selectList("GetUserInfo.queryAll", EiInfo, new RowBounds(1, 20));
 	}
 }
