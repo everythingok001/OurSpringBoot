@@ -33,6 +33,6 @@ public class OtherController extends BaseController {
 	@RequestMapping("/user")
 	@ResponseBody
 	public List<Map<String,Object>> findOne() {
-		return dao.selectList("GetUserInfo.queryAll", EiInfo, new RowBounds(1, 20));
+		return super.selectList("GetUserInfo.queryAll");
 	}
 }
