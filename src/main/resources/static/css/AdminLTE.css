@@ -2571,14 +2571,14 @@ Component: timeline
 }
 /* skin-blue logo */
 .skin-blue .logo {
-  background-color: #00C56A;
+  background-color: #00A65A;
   color: #f9f9f9;
 }
 .skin-blue .logo > a {
   color: #f9f9f9;
 }
 .skin-blue .logo:hover {
-  background: #00C56A;
+  background: #00A65A;
 }
 /* skin-blue content header */
 .skin-blue .right-side > .content-header {
