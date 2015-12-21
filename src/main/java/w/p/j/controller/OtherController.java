@@ -31,8 +31,9 @@ public class OtherController extends BaseController {
 	}
 	
 	@RequestMapping("/user")
-	@ResponseBody
-	public List<Map<String,Object>> findOne() {
-		return super.selectList("GetUserInfo.queryAll");
+	public String findOne() {
+		EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
+		EiInfo.put("name","wangddong");
+		return "table";
 	}
 }
