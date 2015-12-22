@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>AdminLTE | 404 Page not found</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <#include "/common/common_css.html"/>
+    </head>
+    <body class="skin-blue">
+        <!-- header logo: style can be found in header.less -->
+        <#include "/common/header.html"/>
+        <#include "/common/left.html"/>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <!-- Main content -->
+                <section class="content">
+                    <div class="error-page">
+                        <h2 class="headline text-info"> 404</h2>
+                        <div class="error-content">
+                            <h3><i class="fa fa-warning text-yellow"></i> Oops! 页面找不到啦.</h3>
+                            <p>
+                                您想要的我们给不了.
+                            </p>
+                        </div><!-- /.error-content -->
+                    </div><!-- /.error-page -->
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+        </div>
+        <#include "/common/common_js.html"/>
+    </body>
+</html>
