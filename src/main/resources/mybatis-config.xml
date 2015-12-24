@@ -8,7 +8,9 @@
 		<setting name="useGeneratedKeys" value="true" />
 		<setting name="defaultExecutorType" value="SIMPLE" />
 		<setting name="defaultStatementTimeout" value="10" />
-	</settings>	
+		<!-- 日志打印加入前缀 -->
+        <setting name="logPrefix" value="sql."/>
+	</settings>
 	<plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property name="offsetAsPageNum" value="true"/>
