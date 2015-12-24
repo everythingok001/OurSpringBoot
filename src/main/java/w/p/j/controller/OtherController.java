@@ -3,6 +3,8 @@ package w.p.j.controller;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequestMapping("/other")
@@ -27,9 +29,15 @@ public class OtherController extends BaseController {
 	}
 	
 	@RequestMapping("/user")
+	@ResponseBody
 	public String findOne() {
 		EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
 		EiInfo.put("name","wangddong");
 		return "table";
+	}
+	
+	@RequestMapping("/index2")
+	public String index2() {
+		return "index_v2";
 	}
 }
