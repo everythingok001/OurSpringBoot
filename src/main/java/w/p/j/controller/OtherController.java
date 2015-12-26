@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import w.p.j.config.dataSourceSwitch.DataSourceInstances;
+import w.p.j.config.dataSourceSwitch.DataSourceSwitch;
+
 
 @Controller
 @RequestMapping("/other")
@@ -32,6 +35,8 @@ public class OtherController extends BaseController {
 	@ResponseBody
 	public String findOne() {
 		EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
+		DataSourceSwitch.setDataSourceType(DataSourceInstances.MYSQL);
+		super.selectList("GetUserInfo.queryUser");
 		EiInfo.put("name","wangddong");
 		return "table";
 	}
