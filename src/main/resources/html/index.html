@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>欢迎使用管理系统</title>
+<#include "/common.html"/>
+</head>
+<body id="indexLayout" class="easyui-layout">
+	<div region="north" class="logo" style="height:60px;overflow: hidden;" ></div>
+	<div region="center" title="" >
+		<div id="centerTabs" data-options="fit:true">
+			<div title="主页" style="padding:10px;">
+				<p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
+				<ul>
+					<li>easyui is a collection of user-interface plugin based on jQuery.</li>
+					<li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
+					<li>using easyui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup.</li>
+					<li>complete framework for HTML5 web page.</li>
+					<li>easyui save your time and scales while developing your products.</li>
+					<li>easyui is very easy but powerful.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div region="west" title="功能导航" split="true" style="width:200px;overflow: hidden;">
+		<div class="easyui-panel" style="border-width: 0px;">
+	        <ul class="easyui-tree" id="tree">
+	            <li>
+	                <span>运营管理</span>
+	                <ul>
+	                    <li data-options="url:'/other/user'">商户信息维护</li>
+	                </ul>
+	            </li>
+	        </ul>
+    	</div>
+	</div>
+	<div region="south"></div>
+</body>
+	<script type="text/javascript">
+		$('#tree').tree({
+			onClick:function(node){
+				addTab(node);
+			}
+		})
+		
+		var centerTabs;
+		var tabsMenu;
+		$(function() {
+			tabsMenu = $('#tabsMenu').menu({
+				onClick : function(item) {
+					var curTabTitle = $(this).data('tabTitle');
+					var type = $(item.target).attr('type');
+		
+					if (type === 'refresh') {
+						refreshTab(curTabTitle);
+						return;
+					}
+		
+					if (type === 'close') {
+						var t = centerTabs.tabs('getTab', curTabTitle);
+						if (t.panel('options').closable) {
+							centerTabs.tabs('close', curTabTitle);
+						}
+						return;
+					}
+		
+					var allTabs = centerTabs.tabs('tabs');
+					var closeTabsTitle = [];
+		
+					$.each(allTabs, function() {
+						var opt = $(this).panel('options');
+						if (opt.closable && opt.title != curTabTitle && type === 'closeOther') {
+							closeTabsTitle.push(opt.title);
+						} else if (opt.closable && type === 'closeAll') {
+							closeTabsTitle.push(opt.title);
+						}
+					});
+		
+					for ( var i = 0; i < closeTabsTitle.length; i++) {
+						centerTabs.tabs('close', closeTabsTitle[i]);
+					}
+				}
+			});
+		
+			centerTabs = $('#centerTabs').tabs({
+				fit : true,
+				border : false,
+				onContextMenu : function(e, title) {
+					e.preventDefault();
+					tabsMenu.menu('show', {
+						left : e.pageX,
+						top : e.pageY 
+					}).data('tabTitle', title);
+				},
+				onUpdate:loadAnimation,
+				onLoad:loadAnimation
+			});
+		});
+		
+		function addTab(node) {
+			if (centerTabs.tabs('exists', node.text)) {
+				centerTabs.tabs('select', node.text);
+			} else {
+				if (node.url && node.url.length > 0) {
+					centerTabs.tabs('add', {
+						title : node.text,
+						closable : true,
+						iconCls : node.iconCls,
+						content : '<iframe src="' + node.url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+						tools : [ {
+							iconCls : 'icon-mini-refresh',
+							handler : function() {
+								refreshTab(node.text);
+							}
+						} ]
+					});
+				} else {
+					centerTabs.tabs('add', {
+						title : node.text,
+						closable : true,
+						iconCls : node.iconCls,
+						content : '<iframe src="error/err.jsp" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+						tools : [ {
+							iconCls : 'icon-mini-refresh',
+							handler : function() {
+								refreshTab(node.text);
+							}
+						} ]
+					});
+				}
+			}
+		}
+		
+		function loadAnimation(){
+			$.messager.progress({
+				text : '页面加载中....',
+				interval : 100
+			});
+			window.setTimeout(function() {
+				try {
+					$.messager.progress('close');
+				} catch (e) {
+				}
+			}, 500);
+		}
+		function refreshTab(title) {
+			var tab = centerTabs.tabs('getTab', title);
+			centerTabs.tabs('update', {
+				tab : tab,
+				options : tab.panel('options')
+			});
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>欢迎使用管理系统</title>
+<#include "/common.html"/>
+<script type="text/javascript">
+	<#include "/user.js"/>
+</script>
+</head>
+<body>
+	<table id="datagrid">
+	</table>
+	
+	<div id="menu" class="easyui-menu" style="width: 120px; display: hidden">
+		<div onclick="add()" iconCls="icon-add">增加</div>
+		<div onclick="del()" iconCls="icon-remove">删除</div>
+		<div onclick="edit()" iconCls="icon-edit">编辑</div>
+	</div>
+	  
+</body>
+</html>

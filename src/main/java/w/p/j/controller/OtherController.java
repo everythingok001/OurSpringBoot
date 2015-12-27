@@ -1,9 +1,15 @@
 package w.p.j.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 import w.p.j.config.dataSourceSwitch.DataSourceInstances;
 import w.p.j.config.dataSourceSwitch.DataSourceSwitch;
@@ -32,13 +38,20 @@ public class OtherController extends BaseController {
 	}
 	
 	@RequestMapping("/user")
-	@ResponseBody
 	public String findOne() {
-		EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
+		return "user";
+	}
+	
+	@RequestMapping("/getUser")
+	@ResponseBody
+	public Map<String,Object> getUser() {
+		System.out.println(EiInfo);
+//		EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
 		DataSourceSwitch.setDataSourceType(DataSourceInstances.MYSQL);
-		super.selectList("GetUserInfo.queryUser");
-		EiInfo.put("name","wangddong");
-		return "table";
+		Page<Object> userList = (Page<Object>) super.selectList("GetUserInfo.queryUser");
+		EiInfo.put("rows",userList);
+		EiInfo.put("total",userList.getTotal());
+		return EiInfo;
 	}
 	
 	@RequestMapping("/index2")

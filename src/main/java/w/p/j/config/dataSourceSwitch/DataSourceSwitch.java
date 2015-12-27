@@ -1,7 +1,7 @@
 package w.p.j.config.dataSourceSwitch;
 
 public class DataSourceSwitch {
-    private static final ThreadLocal contextHolder= new ThreadLocal();  
+    private static final ThreadLocal<String> contextHolder= new ThreadLocal<String>();  
     
     public static void setDataSourceType(String dataSourceType){  
         contextHolder.set(dataSourceType);  

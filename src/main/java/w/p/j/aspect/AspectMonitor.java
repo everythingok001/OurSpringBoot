@@ -50,7 +50,7 @@ public class AspectMonitor {
      	Map<String,Object> queryMap = new HashMap<String,Object>();
      	//封装request参数
 		Enumeration<String> en=request.getParameterNames();
-		   while (en.hasMoreElements()) {
+		while (en.hasMoreElements()) {
 		    String paramName = (String) en.nextElement();
 		    String paramValue = request.getParameter(paramName);
 		    if(!paramValue.equals("")){

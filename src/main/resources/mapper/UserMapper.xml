@@ -6,4 +6,8 @@
 		select * from  stpusrinf
 	</select>
 	
+	
+	<select id="queryUser" resultType="java.util.HashMap">
+		select * from  user
+	</select>
 </mapper>

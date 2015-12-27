@@ -13,7 +13,13 @@
 	</settings>
 	<plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
-            <property name="offsetAsPageNum" value="true"/>
+            <!-- 该参数默认为false -->
+	        <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+	        <!-- 和startPage中的pageNum效果一样-->
+	        <property name="offsetAsPageNum" value="true"/>
+	        <!-- 该参数默认为false -->
+	        <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+	        <property name="rowBoundsWithCount" value="true"/>
         </plugin>
     </plugins>
 </configuration>
