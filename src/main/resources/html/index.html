@@ -21,19 +21,18 @@
 			</div>
 		</div>
 	</div>
-	<div region="west" title="功能导航" split="true" style="width:200px;overflow: hidden;">
+	<div region="west" title="功能导航"  split="true" style="width:200px;overflow: hidden;">
 		<div class="easyui-panel" style="border-width: 0px;">
 	        <ul class="easyui-tree" id="tree">
 	            <li>
 	                <span>运营管理</span>
 	                <ul>
-	                    <li data-options="url:'/other/user'">商户信息维护</li>
+	                    <li data-options="url:'/userInfo'">商户信息维护</li>
 	                </ul>
 	            </li>
 	        </ul>
     	</div>
 	</div>
-	<div region="south"></div>
 </body>
 	<script type="text/javascript">
 		$('#tree').tree({
@@ -105,7 +104,7 @@
 						title : node.text,
 						closable : true,
 						iconCls : node.iconCls,
-						content : '<iframe src="' + node.url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+						content : '<iframe src="' + node.url + '" frameborder="0" style="border:0;width:100%;height:99.7%;"></iframe>',
 						tools : [ {
 							iconCls : 'icon-mini-refresh',
 							handler : function() {
@@ -118,7 +117,7 @@
 						title : node.text,
 						closable : true,
 						iconCls : node.iconCls,
-						content : '<iframe src="error/err.jsp" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+						content : '<iframe src="error/err.jsp" frameborder="0" style="border:0;width:100%;height:99.7%;"></iframe>',
 						tools : [ {
 							iconCls : 'icon-mini-refresh',
 							handler : function() {

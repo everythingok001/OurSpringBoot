@@ -6,9 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class MainCOntroller {
- 
+public class MainController extends BaseController {
+
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
 
 
+    @RequestMapping("/userInfo")
+    public String userInfo(){
+        return "user";
+    }
 
 }
