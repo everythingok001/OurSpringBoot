@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 
 import w.p.j.config.dataSourceSwitch.DataSourceInstances;
 import w.p.j.config.dataSourceSwitch.DataSourceSwitch;
@@ -45,12 +44,22 @@ public class OtherController extends BaseController {
 	@RequestMapping("/getUser")
 	@ResponseBody
 	public Map<String,Object> getUser() {
-		System.out.println(EiInfo);
-//		EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
+		//System.out.println(EiInfo);
+		//EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
 		DataSourceSwitch.setDataSourceType(DataSourceInstances.MYSQL);
 		Page<Object> userList = (Page<Object>) super.selectList("GetUserInfo.queryUser");
+		//EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll1")) ;
 		EiInfo.put("rows",userList);
 		EiInfo.put("total",userList.getTotal());
+		return EiInfo;
+	}
+	
+	@RequestMapping("/getUser1")
+	@ResponseBody
+	public Map<String,Object> getUser1() {
+		//System.out.println(EiInfo);
+		DataSourceSwitch.setDataSourceType(DataSourceInstances.MYSQL);
+		Page<Object> userList = (Page<Object>) super.selectList("GetUserInfo.queryUser");
 		return EiInfo;
 	}
 	

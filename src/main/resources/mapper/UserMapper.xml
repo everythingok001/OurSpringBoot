@@ -6,6 +6,9 @@
 		select * from  stpusrinf
 	</select>
 	
+	<select id="queryAll1" resultType="java.util.HashMap">
+		select * from  stpcusinf
+	</select>
 	
 	<select id="queryUser" resultType="java.util.HashMap">
 		select * from  user
