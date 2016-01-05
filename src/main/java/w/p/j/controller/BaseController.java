@@ -19,11 +19,11 @@ public class BaseController {
 	
 	protected Map<String,Object> EiInfo;
 
-	public Map<String, Object> getEiInfo() {
+	public Map<String,Object> getEiInfo() {
 		return EiInfo;
 	}
 
-	public void setEiInfo(Map<String, Object> eiInfo) {
+	public void setEiInfo(Map<String,Object> eiInfo) {
 		EiInfo = eiInfo;
 	}
 

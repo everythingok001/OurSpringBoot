@@ -10,7 +10,10 @@
 		select * from  stpcusinf
 	</select>
 	
-	<select id="queryUser" resultType="java.util.HashMap">
+	<select id="queryUser"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		select * from  user
+		<if test="name!=null">
+			where name like '%${name}%'
+		</if>
 	</select>
 </mapper>

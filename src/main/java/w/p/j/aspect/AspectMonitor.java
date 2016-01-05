@@ -46,7 +46,8 @@ public class AspectMonitor {
 		log.info("----------日志开始------------");    
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		log.info("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
-		log.info("请求IP:" + request.getRemoteHost()); 
+		log.info("请求IP:" + request.getRemoteHost());
+		
      	Map<String,Object> queryMap = new HashMap<String,Object>();
      	//封装request参数
 		Enumeration<String> en=request.getParameterNames();
@@ -58,6 +59,7 @@ public class AspectMonitor {
 			    queryMap.put(paramName, paramValue);
 		    }
 		}
+		log.info("请求参数:" + queryMap);
 		try {
 			Method setEiInfo =  joinPoint.getTarget().getClass().getMethod("setEiInfo",Map.class);
 			setEiInfo.invoke(joinPoint.getTarget(),queryMap);

@@ -3,24 +3,34 @@
 <head>
     <title>欢迎使用管理系统</title>
     <#include "/common.html"/>
+    <#include "/fileupload.html"/>
 </head>
 <body>
 <!--上边为查询区域-->
 <div class="easyui-layout" data-options="fit : true,border : true">
-    <div data-options="region:'north',title:'',border:false" style="height: 130px;overflow: hidden;" align="left">
-        <form id="form">
+    <div data-options="region:'north',title:'',border:false" style="overflow: hidden;" align="left">
+        <form id="queryForm" method="post">
             <table class="tableForm">
                 <tr>
-                    <td>科目:</td>
-                    <td><input id="kemu" name="kemu" class="easyui-textbox"/></td>
+                    <td>用户名:</td>
+                    <td><input id="name" name="name" class="easyui-textbox"/></td>
 
-                    <td id="userNameLabel">真实姓名:</td>
+                    <td>真实姓名:</td> 
                     <td><input id="userName" name="userName" class="easyui-textbox"/></td>
                 </tr>
                 <tr>
-                    <td width="10%">成绩:</td>
-                    <td width="40%"><input id="start" class="easyui-textbox"/>至<input id="end" class="easyui-textbox" /></td>
+                    <td>成绩:</td>
+                    <td><input id="start" class="easyui-textbox"/>至<input id="end" class="easyui-textbox" /></td>
+                    <td>文件上传:</td>
+                    <td>
+                    	<input id="fileName" name="fileName" class="easyui-textbox"/>
+                    	<span class="easyui-linkbutton fileinput-button">  
+							<span>上传</span>  
+							<input type="file" class="fileupload" name="uploadfile" multiple>  
+						</span>
+                    </td>
                 </tr>
+
             </table>
         </form>
     </div>
@@ -47,12 +57,35 @@
     $(function () {
         //初始化数据表格
         var datagrid = initDataGrid('datagrid');
+        //监控enter键
+        $(this).keydown(function (e){
+            if(e.which == "13"){
+                datagrid.datagrid('load',{name:$('#name').val()})
+            }
+        });
+
+        //文件上传
+        $('.fileupload').fileupload({
+            acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
+            maxNumberOfFiles : 1,
+            url:'/uploadFile',//文件上传地址，当然也可以直接写在input的data-url属性内
+            formData:{id:'123'},//如果需要额外添加参数可以在这里添加
+            done:function(e,result){
+                //done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
+                //注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
+                //返回的数据在result.result中，假设我们服务器返回了一个json对象
+                console.log(result.result+"123123");
+                $('#fileName').textbox("setText",result.result);
+            }
+        });
+
+
         //初始化toolbar
         datagrid.datagrid({
             toolbar: [
                 {
                     text: '查询', iconCls: 'icon-search', handler: function () {
-                        alert("查询");
+                        queryForm('datagrid','queryForm');
                     }
                 }, '-',
                 {

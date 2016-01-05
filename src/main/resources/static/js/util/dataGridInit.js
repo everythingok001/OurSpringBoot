@@ -31,3 +31,12 @@ function initDataGrid(node,param){
     });
     return datagrid;
 }
+
+/**
+ * 用户根据form表单刷新grid数据
+ * @param datagrid 要刷新的datagrid的ID
+ * @param node     form表单的ID
+ */
+function queryForm(datagrid_id,node_id){
+    $('#'+datagrid_id).datagrid('load',JSON.stringify($('#'+node_id).serializeArray()))
+}

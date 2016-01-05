@@ -48,6 +48,15 @@ public class MybatisConfig {
         ds.setUsername(oracleDataSourceEntity.getUsername());
         ds.setPassword(oracleDataSourceEntity.getPassword());
         ds.setUrl(oracleDataSourceEntity.getUrl());
+        ds.setMaxActive(oracleDataSourceEntity.getMaxActive());
+        ds.setValidationQuery(oracleDataSourceEntity.getValidationQuery());
+        ds.setTestOnBorrow(oracleDataSourceEntity.isTestOnBorrow());
+        ds.setTestOnReturn(oracleDataSourceEntity.isTestOnReturn());
+        ds.setTestWhileIdle(oracleDataSourceEntity.isTestWhileIdle());
+        ds.setTimeBetweenEvictionRunsMillis(oracleDataSourceEntity.getTimeBetweenEvictionRunsMillis());
+        ds.setMinEvictableIdleTimeMillis(oracleDataSourceEntity.getMinEictableIdleTimeMillis());
+        ds.setPoolPreparedStatements(oracleDataSourceEntity.isPoolPreparedStatements());
+        ds.setMaxOpenPreparedStatements(oracleDataSourceEntity.getMaxOpenPreparedStatements());
         try {
             ds.setFilters(oracleDataSourceEntity.getFilters());
         } catch (SQLException e) {
@@ -64,6 +73,15 @@ public class MybatisConfig {
         ds.setUsername(mysqlDataSourceEntity.getUsername());
         ds.setPassword(mysqlDataSourceEntity.getPassword());
         ds.setUrl(mysqlDataSourceEntity.getUrl());
+        ds.setMaxActive(mysqlDataSourceEntity.getMaxActive());
+        ds.setValidationQuery(mysqlDataSourceEntity.getValidationQuery());
+        ds.setTestOnBorrow(mysqlDataSourceEntity.isTestOnBorrow());
+        ds.setTestOnReturn(mysqlDataSourceEntity.isTestOnReturn());
+        ds.setTestWhileIdle(mysqlDataSourceEntity.isTestWhileIdle());
+        ds.setTimeBetweenEvictionRunsMillis(mysqlDataSourceEntity.getTimeBetweenEvictionRunsMillis());
+        ds.setMinEvictableIdleTimeMillis(mysqlDataSourceEntity.getMinEictableIdleTimeMillis());
+        ds.setPoolPreparedStatements(mysqlDataSourceEntity.isPoolPreparedStatements());
+        ds.setMaxOpenPreparedStatements(mysqlDataSourceEntity.getMaxOpenPreparedStatements());
         try {
             ds.setFilters(mysqlDataSourceEntity.getFilters());
         } catch (SQLException e) {
