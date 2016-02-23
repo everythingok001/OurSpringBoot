@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.boot:spring-boot-configuration-processor:1.3.1.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/1.3.1.RELEASE/7d6e0b8dc02139bce74de7385bf934f18d5fe1a1/spring-boot-configuration-processor-1.3.1.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/1.3.1.RELEASE/2181762a3d642b0190be78570904da05eb6d6eed/spring-boot-configuration-processor-1.3.1.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

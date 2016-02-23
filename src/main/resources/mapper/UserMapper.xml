@@ -16,4 +16,94 @@
 			where name like '%${name}%'
 		</if>
 	</select>
+
+	<select id="accountInfo" resultType="java.util.HashMap">
+		select NVL(Y.TODAYNOCLEARAMT, '0') / 100 TODAYNOCLEARAMT,
+               U.CUST_ID,
+               CU.CUST_NAME,
+               S.AGE_NAME,
+               Y.TODAYAMT / 100 YESAMT,
+               NVL(P.NETRECAMT, '0') / 100 NETRECAMT1,
+               NVL(AC.CLEARAMT, '0') / 100 CLEARAMT,
+               NVL(AC.NOCLEARAMT, '0') / 100 NOCLEARAMT,
+               AC.CASH_AC_BAL / 100 CASH_AC_BAL,
+               NVL(F.AWAITAMT, '0') / 100 NETRECAMT3,
+               NVL(e.NETRECAMT, '0') / 100 NETRECAMT4,
+               NVL(Y.AWAITAMT, '0') / 100 NETRECAMT5,
+               NVL(ORDER1.MOVEAMT, '0') / 100 MOVEAMT,
+               (Y.TODAYAMT + NVL(P.NETRECAMT, '0') - NVL(B.NETRECAMT, '0') +
+               NVL(ORDER1.MOVEAMT, '0')) / 100 CASH_AC_BAL2,
+               (nvl(Y.TODAYAMT, '0') - nvl(D.BATCHCLEARAMT, '0')) / 100 CASHORDERBALANCE,
+               NVL(D.BATCHCLEARAMT, '0') / 100 BATCHCLEARAMT,
+               NVL(D.BATCHNOCLEARAMT, '0') / 100 BATCHNOCLEARAMT,
+               NVL(C.D0CLEARAMT, '0') / 100 D0CLEARAMT,
+               NVL(C.D0NOCLEARAMT, '0') / 100 D0NOCLEARAMT,
+               NVL(C.FEE, '0') + NVL(D.FEE, '0') / 100 TXAMTFEE
+          from stpusrinf U
+          LEFT JOIN (SELECT A.AGE_NAME, U.CUST_ID, A.CUST_ID AGET_ID
+                       from stpusrinf U
+                       LEFT JOIN pm_term_info T
+                         ON T.OPER_CUST_ID = U.CUST_ID
+                       LEFT JOIN pm_aget_info A
+                         ON A.CUST_ID = T.AGE_CUST_ID) S
+            ON S.CUST_ID = U.CUST_ID
+          LEFT JOIN (SELECT TODAYNOCLEARAMT, TODAYAMT, CUST_ID, AWAITAMT
+                       from stpaccount1
+                      where DATETODAY =  '20160218') Y
+            ON Y.CUST_ID = U.CUST_ID
+          LEFT JOIN (SELECT SUM(NETRECAMT) NETRECAMT, CUST_ID
+                       FROM stppayinf
+                      WHERE (ACTDAT BETWEEN '20160218000000' AND '20160218235959')
+                        AND ORDSTATUS = '01'
+                      GROUP BY CUST_ID) P
+            ON P.CUST_ID = U.CUST_ID
+          LEFT JOIN (SELECT SUM(TXAMT) NETRECAMT, CUST_ID
+                       FROM stpcasinf
+                      WHERE ACTDAT BETWEEN '20160218000000' AND '20160218235959'
+                      GROUP BY CUST_ID) b
+            ON b.CUST_ID = U.CUST_ID
+
+          LEFT JOIN (SELECT nvl(sum(NVL(A.CLEARAMT1, 0)), 0) as D0CLEARAMT,
+                            nvl(sum(NVL(A.NOCLEARAMT1, 0)), 0) as D0NOCLEARAMT,
+                            CUST_ID,
+                            FEE
+                       FROM stpcasinf a
+                      WHERE (ACTDAT BETWEEN '20160218000000' AND '20160218235959')
+                        AND A.T0FLG = '1'
+                        and A.SMR = '即时提现'
+                      GROUP BY CUST_ID, fee) C
+            ON C.CUST_ID = U.CUST_ID
+
+          LEFT JOIN (SELECT nvl(sum(NVL(A.CLEARAMT1, 0)), 0) as BATCHCLEARAMT,
+                            nvl(sum(NVL(A.NOCLEARAMT1, 0)), 0) as BATCHNOCLEARAMT,
+                            CUST_ID,
+                            FEE
+                       FROM stpcasinf a
+                      WHERE (ACTDAT BETWEEN '20160218000000' AND '20160218235959')
+                        AND A.T0FLG = '1'
+                        and (A.SMR != '即时提现' or A.SMR IS NULL)
+                      GROUP BY CUST_ID, FEE) D
+            ON D.CUST_ID = U.CUST_ID
+          LEFT JOIN (SELECT SUM(ORDER_REAL_MONEY) MOVEAMT, CUST_ID
+                       FROM SPECIAL_ORDER_INFO
+                      WHERE ORDER_TIME BETWEEN '20160218000000' AND '20160218235959'
+                        and order_status = '01'
+                      GROUP BY CUST_ID) ORDER1
+            ON ORDER1.CUST_ID = U.CUST_ID
+          LEFT JOIN arp_ac_profile1 F
+            ON F.pay_ac_no = U.CUST_ID || '01'
+          LEFT JOIN (SELECT SUM(TXAMT) NETRECAMT, CUST_ID
+                       FROM stpcasinf
+                      WHERE (SUCDAT BETWEEN '20160218000000' AND '20160218235959')
+                        and T0FLG = '1'
+                      GROUP BY CUST_ID) E
+            ON E.CUST_ID = U.CUST_ID
+          LEFT JOIN arp_ac_profile1 AC
+            ON AC.PAY_AC_NO = (U.CUST_ID || '01')
+          LEFT JOIN stpcusinf CU
+         ON CU.CUST_ID = U.CUST_ID
+         WHERE 1 = 1
+         order by u.cust_id asc
+
+	</select>
 </mapper>

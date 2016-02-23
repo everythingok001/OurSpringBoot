@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,13 +32,13 @@ public class UserController extends BaseController {
     @RequestMapping("/getUser")
     @ResponseBody
     public Map<String,Object> getUser() {
-    	log.info("1");
-        //EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll")) ;
-        DataSourceSwitch.setDataSourceType(DataSourceInstances.MYSQL);
-        Page<Object> userList = (Page<Object>) super.selectList("GetUserInfo.queryUser");
+
+        EiInfo.put("DATA",super.selectList("GetUserInfo.accountInfo")) ;
+        //DataSourceSwitch.setDataSourceType(DataSourceInstances.MYSQL);
+        //Page<Object> userList = (Page<Object>) super.selectList("GetUserInfo.queryUser");
         //EiInfo.put("DATA",super.selectList("GetUserInfo.queryAll1")) ;
-        EiInfo.put("rows",userList);
-        EiInfo.put("total",userList.getTotal());
+        //EiInfo.put("rows",userList);
+        //EiInfo.put("total",userList.getTotal());
         return EiInfo;
     }
 }

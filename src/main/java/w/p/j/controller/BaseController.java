@@ -33,7 +33,7 @@ public class BaseController {
 	 * @return 结果集
      */
 	public <E> List<E> selectList(String statement){
-		RowBounds rowBounds = null;
+		RowBounds rowBounds;
 		if (EiInfo.get("page")==null && EiInfo.get("rows")==null){
 			rowBounds = new RowBounds(1,20);
 		}else{

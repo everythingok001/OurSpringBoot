@@ -41,7 +41,7 @@ public class MybatisConfig {
     private MysqlDataSourceEntity mysqlDataSourceEntity;
 
     //数据源1
-    /*public DataSource oracleDataSource() {
+    public DataSource oracleDataSource() {
         //加载配置文件属性
         DruidDataSource ds = new DruidDataSource();
         ds.setDriverClassName(oracleDataSourceEntity.getDriverClassName());
@@ -63,7 +63,7 @@ public class MybatisConfig {
             e.printStackTrace();
         }
         return ds;
-    }*/
+    }
     
     //数据源2
     public DataSource mysqlDataSource() {
@@ -92,14 +92,14 @@ public class MybatisConfig {
     
     @Bean
     public DataSource dataSource(){
-    	//DataSource oracleDataSource = oracleDataSource();
+    	DataSource oracleDataSource = oracleDataSource();
     	DataSource mySqlDataSource = mysqlDataSource();
     	DataSources source = new DataSources();
     	Map<Object,Object> sourcesMap = new HashMap<Object,Object>();
     	sourcesMap.put("MYSQL", mySqlDataSource);
-        //sourcesMap.put("ORACLE", oracleDataSource);
+        sourcesMap.put("ORACLE", oracleDataSource);
     	source.setTargetDataSources(sourcesMap);
-    	source.setDefaultTargetDataSource(mySqlDataSource);
+    	source.setDefaultTargetDataSource(oracleDataSource);
     	return source;
     }
     
