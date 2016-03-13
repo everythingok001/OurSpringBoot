@@ -1,8 +1,13 @@
 package w.p.j.vendor.util;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.util.DigestUtils;
+
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.ByteArrayOutputStream;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
@@ -57,5 +62,35 @@ public class ThreeDes {
 //        byte[] encoded = encryptMode(keyBytes, szSrc.getBytes());
 //        System.out.println("加密后的字符串:" + new String(encoded));
 //    }
+
+    public static String getMD5Str(String sMsg) {
+        byte[] msg = sMsg.getBytes();
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(msg);
+        }
+        catch (NoSuchAlgorithmException localNoSuchAlgorithmException) {
+            localNoSuchAlgorithmException.printStackTrace();
+        }
+        byte[] b = messageDigest.digest();
+        return new String(Base64.encodeBase64(b));
+    }
+
+    public static String GetDecodeStr(String bytes) {
+        String sRes = "";
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length() / 2);
+
+        for (int i = 0; i < bytes.length(); i += 2)
+            baos.write("0123456789ABCDEF".indexOf(bytes.charAt(i)) << 4 | "0123456789ABCDEF".indexOf(bytes.charAt(i + 1)));
+        try
+        {
+            sRes = new String(baos.toByteArray(), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sRes;
+    }
 
 }

@@ -14,9 +14,9 @@ public class BaseController {
 	
 	@Resource
 	SqlSessionTemplate dao;
-	
+
 	protected Logger logger= LoggerFactory.getLogger(this.getClass().getName());
-	
+
 	protected Map<String,Object> EiInfo;
 
 	public Map<String,Object> getEiInfo() {
@@ -26,6 +26,7 @@ public class BaseController {
 	public void setEiInfo(Map<String,Object> eiInfo) {
 		EiInfo = eiInfo;
 	}
+
 
 	/**
 	 * @title 父类方法，默认取参数分页，参数为EiInfo
