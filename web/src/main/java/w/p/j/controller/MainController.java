@@ -15,17 +15,11 @@ import java.io.IOException;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/upload")
 public class MainController extends BaseController {
 
     @Autowired
     ProjectEntity projectEntity;
-
-    @RequestMapping("/index")
-    public String index(){
-        return "index";
-    }
-
 
     @RequestMapping("/userInfo")
     public String userInfo(){

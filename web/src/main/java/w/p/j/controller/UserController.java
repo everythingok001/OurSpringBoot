@@ -6,8 +6,10 @@ import w.p.j.config.dataSourceSwitch.DataSourceSwitch;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import w.p.j.vendor.util.ParametersUtil;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -26,10 +28,9 @@ public class UserController extends BaseController {
      */
     @RequestMapping("/getUser")
     @ResponseBody
-    public List getUser() {
+    public List getUser(HttpServletRequest request) {
+        this.setEiInfo(ParametersUtil.parse(request));
         DataSourceSwitch.setDataSourceType(DataSourceInstances.ORACLE);
         return super.selectList("GetUserInfo.queryAll");
     }
-
-
 }

@@ -44,36 +44,36 @@ public class AspectMonitor {
 	@Before("aspect()")
 	public void before(JoinPoint joinPoint){
 		log.info("----------日志开始------------");    
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		log.info("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
-		log.info("请求IP:" + request.getRemoteHost());
-		
-     	Map<String,Object> queryMap = new HashMap<String,Object>();
-     	//封装request参数
-		Enumeration<String> en=request.getParameterNames();
-		while (en.hasMoreElements()) {
-		    String paramName = (String) en.nextElement();
-		    String paramValue = request.getParameter(paramName);
-		    if(!paramValue.equals("")){
-		    	//形成键值对应的map
-			    queryMap.put(paramName, paramValue);
-		    }
-		}
-		log.info("请求参数:" + queryMap);
-		try {
-			Method setEiInfo =  joinPoint.getTarget().getClass().getMethod("setEiInfo",Map.class);
-			setEiInfo.invoke(joinPoint.getTarget(),queryMap);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//		log.info("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+//		log.info("请求IP:" + request.getRemoteHost());
+//
+//     	Map<String,Object> queryMap = new HashMap<String,Object>();
+//     	//封装request参数
+//		Enumeration<String> en=request.getParameterNames();
+//		while (en.hasMoreElements()) {
+//		    String paramName = (String) en.nextElement();
+//		    String paramValue = request.getParameter(paramName);
+//		    if(!paramValue.equals("")){
+//		    	//形成键值对应的map
+//			    queryMap.put(paramName, paramValue);
+//		    }
+//		}
+//		log.info("请求参数:" + queryMap);
+//		try {
+//			Method setEiInfo =  joinPoint.getTarget().getClass().getMethod("setEiInfo",Map.class);
+//			setEiInfo.invoke(joinPoint.getTarget(),queryMap);
+//		} catch (IllegalAccessException e) {
+//			e.printStackTrace();
+//		} catch (IllegalArgumentException e) {
+//			e.printStackTrace();
+//		} catch (InvocationTargetException e) {
+//			e.printStackTrace();
+//		}catch (NoSuchMethodException e) {
+//			e.printStackTrace();
+//		} catch (SecurityException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	//配置后置通知,使用在方法aspect()上注册的切入点
